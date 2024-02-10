@@ -19,13 +19,16 @@ if [ -z "$(git diff --cached --name-only | grep --no-messages --extended-regexp 
     exit 0
 fi
 
-# Commiting changes
-git commit --message "" --allow-empty-message
-
 # Displaying disk usage
 du --human-readable --summarize .
 du --human-readable --summarize ./images
 du --human-readable --summarize ./pdf
+
+# Commiting changes
+read -p "Do you want to commit changes? (y/N) " should_commit
+if [ "$should_commit" = "y" ]; then
+    git commit --message "" --allow-empty-message
+fi
 
 # Pushing changes
 read -p "Do you want to push changes to the repository? (y/N) " should_push
